@@ -236,17 +236,17 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
 
 /* AUTH MODAL */
 #authModal .modal-box{border-top:4px solid var(--lime);}
-.auth-tabs{display:flex;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
-.auth-tab{flex:1;padding:9px;background:white;border:none;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--muted);}
-.auth-tab.active{background:var(--forest);color:var(--lime);}
-.auth-pane{display:none;}
-.auth-pane.active{display:block;}
-.google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 16px;background:white;border:1px solid #ddd;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;color:#333;margin-bottom:14px;}
-.google-btn:hover{box-shadow:0 3px 12px rgba(0,0,0,.12);border-color:#bbb;}
-.google-icon{width:17px;height:17px;}
-.or-divider{text-align:center;font-size:.72rem;color:var(--muted);margin:12px 0;position:relative;}
-.or-divider::before,.or-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border);}
-.or-divider::before{left:0;}.or-divider::after{right:0;}
+
+
+
+
+
+
+
+
+
+
+
 .aform-group{margin-bottom:11px;}
 .aform-group label{display:block;font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
 .aform-group input,.aform-group select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:9px;font-family:inherit;font-size:.86rem;outline:none;transition:border-color .2s,box-shadow .2s;}
@@ -292,7 +292,7 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
     <li><a onclick="navScrollTo('standings')">Standings</a></li>
     <li><a onclick="navScrollTo('lineup')">Lineup</a></li>
     <li><a onclick="navScrollTo('news')">News</a></li>
-    <li id="navUserArea"><a onclick="openOverlay('authModal')" class="nav-cta">Sign In</a></li>
+    <li id="navUserArea"><a onclick="openAuth('login')" class="nav-cta">Sign In</a></li>
     <li><a onclick="openAdminPrompt()" class="admin-nav-btn" id="adminNavBtn">⚙ Admin</a></li>
   </ul>
 </nav>
@@ -318,13 +318,13 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
     <p class="hero-desc">A premier community tennis league bringing competitive spirit and camaraderie to every court. Register your team, set your lineup, and compete.</p>
     <div class="hero-buttons">
       <button class="btn-primary" onclick="navScrollTo('teams')">View Teams</button>
-      <button class="btn-outline" onclick="openOverlay('authModal')">Join Now</button>
+      <button class="btn-outline" onclick="openAuth('login')">Join Now</button>
     </div>
     <div class="hero-stats">
       <div class="stat-item"><div class="stat-num" id="stat-teams">0</div><div class="stat-label">Teams</div></div>
       <div class="stat-item"><div class="stat-num" id="stat-players">0</div><div class="stat-label">Players</div></div>
       <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Courts</div></div>
-      <div class="stat-item"><div class="stat-num">2026</div><div class="stat-label">Season</div></div>
+      <div class="stat-item"><div class="stat-num">2025</div><div class="stat-label">Season</div></div>
     </div>
   </div>
 </section>
@@ -452,7 +452,7 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Bramblett Grove <em>Tennis Association</em></div>
-  <p>Forsyth County, Georgia · Season 2026</p>
+  <p>Forsyth County, Georgia · Season 2025</p>
   <ul class="footer-links">
     <li><a onclick="navScrollTo('hero')">Home</a></li>
     <li><a onclick="navScrollTo('teams')">Teams</a></li>
@@ -461,7 +461,7 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
     <li><a>Rules &amp; Bylaws</a></li>
   </ul>
   <hr class="divider">
-  <p class="copyright">© 2026 Bramblett Grove Tennis Association. All rights reserved.</p>
+  <p class="copyright">© 2025 Bramblett Grove Tennis Association. All rights reserved.</p>
 </footer>
 
 <!-- ══════════════════ MODALS ══════════════════ -->
@@ -489,54 +489,73 @@ footer .copyright{font-size:.74rem;color:rgba(245,240,232,.27);}
 <div class="overlay" id="authModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeOverlay('authModal')">✕</button>
-    <h2>Welcome to BGTA</h2>
-    <p class="modal-sub">Sign in or create an account. Captains can register and manage their teams after signing in.</p>
-    <div class="auth-tabs">
-      <button class="auth-tab active" onclick="switchAuthTab('login',this)">Sign In</button>
-      <button class="auth-tab" onclick="switchAuthTab('register',this)">Register</button>
-    </div>
-    <!-- LOGIN -->
-    <div class="auth-pane active" id="pane-login">
-      <button class="google-btn" onclick="googleSignIn()">
-        <svg class="google-icon" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.2 26.8 36 24 36c-5.2 0-9.6-3.2-11.4-7.8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.2 5.2C36.8 39.5 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-        Continue with Google
-      </button>
-      <div class="or-divider">or sign in with email</div>
-      <div class="aform-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email"></div>
-      <div class="aform-group"><label>Password</label><input type="password" id="loginPw" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')signInEmail()"></div>
+
+    <!-- SIGN IN VIEW -->
+    <div id="authViewLogin">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:2rem;margin-bottom:8px">🎾</div>
+        <h2>Sign In</h2>
+        <p class="modal-sub">Welcome back to Bramblett Grove.</p>
+      </div>
+      <div class="aform-group"><label>Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email"
+          onkeydown="if(event.key==='Enter')document.getElementById('loginPw').focus()">
+      </div>
+      <div class="aform-group"><label>Password</label>
+        <input type="password" id="loginPw" placeholder="Your password" autocomplete="current-password"
+          onkeydown="if(event.key==='Enter')signInEmail()">
+      </div>
       <div class="auth-err" id="loginErr"></div>
-      <button class="btn-primary" style="width:100%;margin-top:12px" onclick="signInEmail()">Sign In</button>
+      <button class="btn-primary" style="width:100%;margin-top:14px;padding:13px" onclick="signInEmail()">Sign In</button>
+      <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:16px">
+        No account? <a onclick="showAuthView('register')" style="color:var(--grove);cursor:pointer;font-weight:600">Register here</a>
+      </p>
     </div>
-    <!-- REGISTER -->
-    <div class="auth-pane" id="pane-register">
-      <button class="google-btn" onclick="googleSignIn()">
-        <svg class="google-icon" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.2 26.8 36 24 36c-5.2 0-9.6-3.2-11.4-7.8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.2 5.2C36.8 39.5 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-        Register with Google
-      </button>
-      <div class="or-divider">or register with email</div>
-      <div class="aform-group"><label>Full Name</label><input type="text" id="regName" placeholder="Your full name" autocomplete="name"></div>
-      <div class="aform-group"><label>Email</label><input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email"></div>
+
+    <!-- REGISTER VIEW -->
+    <div id="authViewRegister" style="display:none">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:2rem;margin-bottom:8px">🎾</div>
+        <h2>Create Account</h2>
+        <p class="modal-sub">Join the association. Captains can register teams after signing up.</p>
+      </div>
+      <div class="aform-group"><label>Full Name</label>
+        <input type="text" id="regName" placeholder="Your full name" autocomplete="name">
+      </div>
+      <div class="aform-group"><label>Email</label>
+        <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+      </div>
       <div class="aform-group">
-        <label>Password</label>
-        <input type="password" id="regPw" placeholder="Min 8 characters" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+        <label>Password <span id="pwStrengthLabel" style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0"></span></label>
+        <input type="password" id="regPw" placeholder="Min 8 characters" autocomplete="new-password"
+          oninput="checkPwStrength(this.value)" onkeydown="if(event.key==='Enter')registerEmail()">
         <div class="pw-strength-bar" id="pwBar"></div>
       </div>
-      <div class="aform-group"><label>Role</label>
+      <div class="aform-group"><label>I am registering as a…</label>
         <select id="regRole">
           <option value="member">Member / Player</option>
           <option value="captain">Team Captain</option>
         </select>
       </div>
       <div class="aform-group"><label>Skill Level</label>
-        <select id="regSkill"><option>Beginner (NTRP 2.0–2.5)</option><option>Intermediate (NTRP 3.0–3.5)</option><option>Advanced (NTRP 4.0–4.5)</option><option>Expert (NTRP 5.0+)</option></select>
+        <select id="regSkill">
+          <option>Beginner (NTRP 2.0–2.5)</option>
+          <option>Intermediate (NTRP 3.0–3.5)</option>
+          <option>Advanced (NTRP 4.0–4.5)</option>
+          <option>Expert (NTRP 5.0+)</option>
+        </select>
       </div>
       <div class="terms-row">
         <input type="checkbox" id="regTerms">
         <label for="regTerms">I agree to BGTA rules, code of conduct, and member terms.</label>
       </div>
       <div class="auth-err" id="regErr"></div>
-      <button class="btn-primary" style="width:100%;margin-top:12px" onclick="registerEmail()">Create Account</button>
+      <button class="btn-primary" style="width:100%;margin-top:14px;padding:13px" onclick="registerEmail()">Create Account</button>
+      <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:16px">
+        Already have an account? <a onclick="showAuthView('login')" style="color:var(--grove);cursor:pointer;font-weight:600">Sign in</a>
+      </p>
     </div>
+
   </div>
 </div>
 
@@ -624,7 +643,7 @@ const MemberStore = (function(){
         await this.register({name,email,pw,role:'member',skill:'Unknown'});
         return await this.login(email,pw);
       }
-      if(user.provider==='google')return{ok:false,msg:'Please sign in with Google.'};
+      if(user.provider==='google'){user.provider='email';}
       const hash=await hp(pw);
       if(hash!==user.hash)return{ok:false,msg:'Incorrect password.'};
       _cur=user;return{ok:true,user};
@@ -664,18 +683,24 @@ function applyAdminMode(on){
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&AdminSession.on)lockAdmin();});
 
 /* ── AUTH UI ── */
-function switchAuthTab(tab,btn){
-  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.auth-pane').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('pane-'+tab).classList.add('active');
+function showAuthView(view){
+  document.getElementById('authViewLogin').style.display = view==='login'?'block':'none';
+  document.getElementById('authViewRegister').style.display = view==='register'?'block':'none';
+  // clear errors
+  ['loginErr','regErr'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  if(view==='login') setTimeout(()=>{const e=document.getElementById('loginEmail');if(e)e.focus();},80);
+  if(view==='register') setTimeout(()=>{const e=document.getElementById('regName');if(e)e.focus();},80);
 }
 function checkPwStrength(pw){
-  const b=document.getElementById('pwBar');if(!b)return;
-  if(!pw){b.className='pw-strength-bar';return;}
+  const b=document.getElementById('pwBar');
+  const lbl=document.getElementById('pwStrengthLabel');
+  if(!b)return;
+  if(!pw){b.className='pw-strength-bar';if(lbl)lbl.textContent='';return;}
   const strong=pw.length>=10&&/[A-Z]/.test(pw)&&/[0-9]/.test(pw)&&/[^A-Za-z0-9]/.test(pw);
   const medium=pw.length>=6&&(/[A-Z]/.test(pw)||/[0-9]/.test(pw));
-  b.className='pw-strength-bar '+(strong?'strong':medium?'medium':'weak');
+  const level=strong?'strong':medium?'medium':'weak';
+  b.className='pw-strength-bar '+level;
+  if(lbl)lbl.textContent='— '+{strong:'Strong ✓',medium:'Good',weak:'Too weak'}[level];
 }
 async function signInEmail(){
   const email=document.getElementById('loginEmail').value.trim();
@@ -708,14 +733,7 @@ async function registerEmail(){
   onSignedIn(login.user,'email');
 }
 function showAuthErr(el,m){el.textContent=m;el.style.display='block';}
-function googleSignIn(){
-  /* Production: use Google Identity Services popup flow.
-     Popup keeps OAuth token out of URL, history, referrer headers.
-     Demo simulates callback. */
-  const mock={name:'Alex Johnson',email:'alex.johnson@gmail.com',role:'captain'};
-  const user=MemberStore.loginGoogle(mock);
-  onSignedIn(user,'google');
-}
+/* Google sign-in removed — email auth only */
 function onSignedIn(user,provider){
   closeOverlay('authModal');
   ['loginEmail','loginPw','regName','regEmail','regPw'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
@@ -723,7 +741,7 @@ function onSignedIn(user,provider){
   ['loginErr','regErr'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   updateNavUser(user);
   updateCaptainPanel();
-  notify('👋 Welcome, '+user.name+'!'+(provider==='google'?' (Google)':''));
+  notify('👋 Welcome, '+user.name+'! You are signed in.');
   // Pre-fill captain name in register team modal if captain
   if(user.role==='captain'){const ci=document.getElementById('rtCaptain');if(ci)ci.value=user.name;const ei=document.getElementById('rtEmail');if(ei)ei.value=user.email;}
 }
@@ -748,7 +766,7 @@ function signOut(){
   MemberStore.logout();
   const area=document.getElementById('navUserArea');
   area.style.cssText='';
-  area.innerHTML=`<a onclick="openOverlay('authModal')" class="nav-cta">Sign In</a>`;
+  area.innerHTML=`<a onclick="openAuth('login')" class="nav-cta">Sign In</a>`;
   updateCaptainPanel();
   notify('Signed out.');
 }
@@ -765,9 +783,9 @@ let teams=[], matches=[], standings=[];
 let nextTeamId=1, nextMatchId=1, currentFilter='all', _capTarget=null;
 
 const news=[
-  {emoji:'🏆',tag:'Tournament',title:'Spring Classic Tournament – Coming Soon',date:'2026',text:'Stay tuned for our inaugural Spring Classic. Open to all registered teams.'},
-  {emoji:'🎾',tag:'Clinic',title:'Register Your Team to Get Started',date:'2026',text:'Captains: sign in and register your team. Add players, set your lineup, and get on the schedule.'},
-  {emoji:'📣',tag:'Welcome',title:'Welcome to Bramblett Grove Tennis Association',date:'2026',text:'This is your home for league management — schedules, standings, lineups, and more.'},
+  {emoji:'🏆',tag:'Tournament',title:'Spring Classic Tournament – Coming Soon',date:'2025',text:'Stay tuned for our inaugural Spring Classic. Open to all registered teams.'},
+  {emoji:'🎾',tag:'Clinic',title:'Register Your Team to Get Started',date:'2025',text:'Captains: sign in and register your team. Add players, set your lineup, and get on the schedule.'},
+  {emoji:'📣',tag:'Welcome',title:'Welcome to Bramblett Grove Tennis Association',date:'2025',text:'This is your home for league management — schedules, standings, lineups, and more.'},
 ];
 
 /* ── INIT ── */
@@ -810,7 +828,7 @@ function renderTeams(){
       <div class="empty-icon">🎾</div>
       <h3>No Teams Yet</h3>
       <p>Captains can sign in and register their team. Admin can also add teams directly.</p>
-      <button class="btn-primary" onclick="openOverlay('authModal')">Sign In to Register</button>
+      <button class="btn-primary" onclick="openAuth('register')">Sign In to Register</button>
     </div>`;
     setupReveal(); return;
   }
@@ -1124,6 +1142,19 @@ function setupReveal(){
   const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.07});
   document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
 }
+
+function openAuth(view){
+  showAuthView(view||'login');
+  openOverlay('authModal');
+}
+// Open register team modal pre-fills captain name from current user
+document.getElementById('registerTeamModal').addEventListener('mousedown',()=>{
+  const user=MemberStore.current;
+  if(user){
+    const ci=document.getElementById('rtCaptain');if(ci&&!ci.value)ci.value=user.name;
+    const ei=document.getElementById('rtEmail');if(ei&&!ei.value)ei.value=user.email||'';
+  }
+});
 
 init();
 </script>
